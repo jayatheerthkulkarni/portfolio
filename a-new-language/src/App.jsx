@@ -559,7 +559,7 @@ export default function App() {
 							in the first draft.
 						</p>
 						<a
-							href="/gink.pdf"
+							href="./gink.pdf"
 							download
 							className="inline-flex items-center gap-3 bg-[#c8a96e] text-black px-10 py-5 rounded-2xl font-bold shadow-xl hover:scale-105 transition-all"
 						>
