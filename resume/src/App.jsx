@@ -179,7 +179,7 @@ export default function ResumePage() {
 					className={`rounded-xl overflow-hidden border shadow-2xl transition-all duration-500 ${darkMode ? "border-white/10 bg-black/20 shadow-[0_0_40px_rgba(255,255,255,0.08)]" : "border-neutral-300 bg-white shadow-xl"}`}
 				>
 					<iframe
-						src="/jayatheerth_kulkarni_resume.pdf"
+						src="./jayatheerth_kulkarni_resume.pdf"
 						className="w-full h-[88vh]"
 						title="Resume PDF"
 					/>
