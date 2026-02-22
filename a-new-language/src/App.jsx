@@ -5,12 +5,14 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	Download,
-	ExternalLink,
 	Github,
 	Twitter,
 	Linkedin,
+	Mail,
+	ExternalLink,
 } from "lucide-react";
 
+// --- Data ---
 const nav_json = [
 	{ label: "Home", href: "https://jayatheerth.com/" },
 	{ label: "About", href: "https://jayatheerth.com/about" },
@@ -20,91 +22,57 @@ const nav_json = [
 const features_json = [
 	{
 		title: "Memory-safe. No GC.",
-		desc: "If it compiles, it doesn't leak. Ownership is tracked at compile time — not by a garbage collector running behind your back.",
+		desc: "Ownership is tracked at compile time — not by a garbage collector.",
 		tag: "Safety",
-		code: `i32: x = 10;\ni32: y = x;   // x is moved\n// x is now invalid`,
+		code: `i32: x = 10;\ni32: y = x; // moved`,
 	},
 	{
 		title: "Errors are values.",
-		desc: "No try/catch. No hidden jumps. Return your errors alongside your result and handle them in plain sight.",
+		desc: "No try/catch. Return errors alongside your result.",
 		tag: "Ergonomics",
 		code: `fun i32, bool: parse(i32: n) {\n  if (n < 0) { return 0, false; }\n  return n, true;\n}`,
-	},
-	{
-		title: "No type inference.",
-		desc: "Every variable says what it is. Code is read ten times more than written — types are documentation you can't forget.",
-		tag: "Readability",
-		code: `i32: count = 0;\nf64: ratio = 0.618;\nbool: ready = false;`,
-	},
-	{
-		title: "Cleanup is a contract.",
-		desc: "ensure + defer means you cannot forget to close a file. The compiler enforces it. Zero runtime cost.",
-		tag: "Correctness",
-		code: `fun i32: open(string: path) {\n  ensure(close());\n  return fd;\n}\ndefer { close(); }`,
 	},
 ];
 
 const syntax_tabs = [
 	{
-		label: "Hello World",
+		label: "Hello",
 		code: `import std;\n\nfun main() {\n  std.println("Hello World");\n}`,
 	},
 	{
 		label: "Ownership",
-		code: `i32: a = 10;\ni32: b = a;     // a is moved\na = 50;         // revive a\ni32: c := b;   // explicit copy`,
-	},
-	{
-		label: "Multi-return",
-		code: `fun i32, bool: divide(i32: a, i32: b) {\n  if (b == 0) { return 0, false; }\n  return a / b, true;\n}\n\nresult, ok := divide(10, 2);`,
-	},
-	{
-		label: "Generics",
-		code: `fun type:: add(type:, type: a, type: b) {\n  return a + b;\n}\n\ni32: s = add(i32:, 10, 20);\nf32: f = add(f32:, 1.5, 2.5);`,
+		code: `i32: a = 10;\ni32: b = a; // moved\na = 50;     // revive\ni32: c := b; // copy`,
 	},
 ];
 
 const traits_json = [
 	{ name: "Compiled" },
-	{ name: "Statically typed" },
 	{ name: "No GC" },
+	{ name: "Statically typed" },
 	{ name: "Move semantics" },
-	{ name: "Explicit errors" },
-	{ name: "C-inspired syntax" },
-	{ name: "Built-in formatter" },
-	{ name: "Package manager" },
+	{ name: "C-inspired" },
+	{ name: "Fast" },
 ];
+
+// --- Sub-components ---
 
 function Navbar({ darkMode, toggleTheme }) {
 	const [menu, setMenu] = useState(false);
 	return (
 		<nav
-			className={`sticky top-6 z-50 mx-auto mb-10 flex flex-col md:flex-row items-center justify-between px-6 py-3 backdrop-blur-2xl border rounded-2xl transition-all duration-500 w-full md:w-fit ${darkMode ? "bg-black/40 text-neutral-200 border-white/10 shadow-2xl shadow-black" : "bg-white/60 text-neutral-800 border-neutral-200 shadow-xl shadow-black/5"}`}
+			className={`sticky top-4 z-50 mx-auto mb-10 flex flex-col md:flex-row items-center justify-between px-4 py-2 backdrop-blur-2xl border rounded-2xl transition-all duration-500 w-full md:w-fit ${darkMode ? "bg-black/40 text-neutral-200 border-white/10 shadow-2xl" : "bg-white/60 text-neutral-800 border-neutral-200 shadow-xl"}`}
 		>
-			<div className="flex items-center justify-between w-full md:w-auto gap-8">
+			<div className="flex items-center justify-between w-full md:w-auto gap-4">
 				<a
 					href="/"
-					className="font-bold text-lg tracking-tighter select-none whitespace-nowrap"
+					className="font-bold text-base tracking-tighter"
 				>
 					jayatheerth
 				</a>
-				<div className="hidden md:flex items-center gap-6">
-					{nav_json.map((item) => (
-						<a
-							key={item.label}
-							href={item.href}
-							className="text-[13px] font-medium opacity-60 hover:opacity-100 transition-all"
-						>
-							{item.label}
-						</a>
-					))}
-				</div>
-				<div
-					className={`hidden md:block h-4 w-px ${darkMode ? "bg-white/10" : "bg-neutral-300"}`}
-				/>
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-1">
 					<button
 						onClick={toggleTheme}
-						className={`p-2 rounded-xl transition-all duration-300 ${darkMode ? "hover:bg-white/10 text-yellow-500" : "hover:bg-black/5 text-indigo-600"}`}
+						className={`p-2 rounded-xl ${darkMode ? "text-yellow-500" : "text-indigo-600"}`}
 					>
 						{darkMode ? (
 							<Sun size={18} />
@@ -128,16 +96,26 @@ function Navbar({ darkMode, toggleTheme }) {
 					</button>
 				</div>
 			</div>
-			{/* Mobile Menu */}
+			<div className="hidden md:flex items-center gap-6 md:ml-8">
+				{nav_json.map((item) => (
+					<a
+						key={item.label}
+						href={item.href}
+						className="text-[13px] font-medium opacity-60 hover:opacity-100"
+					>
+						{item.label}
+					</a>
+				))}
+			</div>
 			<div
-				className={`md:hidden overflow-hidden transition-all duration-500 w-full ${menu ? "max-h-64 mt-4 opacity-100" : "max-h-0 opacity-0"}`}
+				className={`md:hidden overflow-hidden transition-all duration-300 w-full ${menu ? "max-h-64 mt-2" : "max-h-0"}`}
 			>
-				<ul className="flex flex-col gap-2 pb-2">
+				<ul className="flex flex-col gap-1 pb-2">
 					{nav_json.map((item) => (
 						<li key={item.label}>
 							<a
 								href={item.href}
-								className="block py-3 text-center text-sm font-medium rounded-xl hover:bg-white/5"
+								className="block py-2 text-center text-sm font-medium hover:bg-white/5"
 							>
 								{item.label}
 							</a>
@@ -155,36 +133,11 @@ function CodeSnippet({ code, dark }) {
 		"import",
 		"return",
 		"if",
-		"for",
-		"while",
-		"const",
-		"inline",
-		"pub",
-		"use",
-		"check",
 		"defer",
 		"ensure",
-		"unsafe",
-		"struct",
-		"package",
 		"type",
 	];
-	const types = [
-		"i32",
-		"i64",
-		"f32",
-		"f64",
-		"bool",
-		"char",
-		"string",
-		"void",
-		"u32",
-		"u64",
-		"u8",
-		"i8",
-		"f16",
-		"f128",
-	];
+	const types = ["i32", "i64", "f32", "f64", "bool", "string"];
 
 	const tokenize = (line) => {
 		const out = [];
@@ -196,10 +149,7 @@ function CodeSnippet({ code, dark }) {
 				out.push(
 					<span
 						key={k++}
-						style={{
-							color: "#636e7b",
-							fontStyle: "italic",
-						}}
+						className="text-neutral-500 italic"
 					>
 						{rem}
 					</span>,
@@ -212,7 +162,7 @@ function CodeSnippet({ code, dark }) {
 				out.push(
 					<span
 						key={k++}
-						style={{ color: "#a5d6ff" }}
+						className="text-blue-300"
 					>
 						{m}
 					</span>,
@@ -225,10 +175,7 @@ function CodeSnippet({ code, dark }) {
 					out.push(
 						<span
 							key={k++}
-							style={{
-								color: "#ff7b72",
-								fontWeight: 600,
-							}}
+							className="text-red-400 font-semibold"
 						>
 							{kw}
 						</span>,
@@ -243,9 +190,7 @@ function CodeSnippet({ code, dark }) {
 					out.push(
 						<span
 							key={k++}
-							style={{
-								color: "#79c0ff",
-							}}
+							className="text-sky-400"
 						>
 							{t}
 						</span>,
@@ -265,20 +210,14 @@ function CodeSnippet({ code, dark }) {
 
 	return (
 		<pre
-			className="hide-scrollbar"
-			style={{
-				margin: 0,
-				padding: "20px",
-				fontSize: 13,
-				lineHeight: 1.6,
-				fontFamily: "var(--font-mono)",
-				background: "transparent",
-				color: dark ? "#c9d1d9" : "#24292f",
-				overflowX: "auto",
-			}}
+			className="hide-scrollbar w-full overflow-x-auto p-4 text-[11px] md:text-[13px] leading-relaxed font-mono"
+			style={{ color: dark ? "#c9d1d9" : "#24292f" }}
 		>
 			{code.split("\n").map((line, i) => (
-				<div key={i} className="flex">
+				<div
+					key={i}
+					className="flex whitespace-pre min-w-fit"
+				>
 					<span className="opacity-20 select-none mr-4 w-4 text-right">
 						{i + 1}
 					</span>
@@ -289,63 +228,44 @@ function CodeSnippet({ code, dark }) {
 	);
 }
 
+// --- Main App ---
+
 export default function App() {
 	const [darkMode, setDarkMode] = useState(true);
 	const [activeTab, setActiveTab] = useState(0);
-	const carouselRef = useRef(null);
 	const traitsRef = useRef(null);
 
-	const toggleTheme = () => setDarkMode(!darkMode);
-
-	const scrollCar = (ref, dir) => {
-		if (!ref.current) return;
-		ref.current.scrollBy({ left: dir * 300, behavior: "smooth" });
+	const scrollCar = (dir) => {
+		if (traitsRef.current)
+			traitsRef.current.scrollBy({
+				left: dir * 200,
+				behavior: "smooth",
+			});
 	};
-
-	const accent = "#c8a96e";
-	const bg = darkMode ? "#0a0a0a" : "#fafafa";
-	const cardBg = darkMode ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.01)";
-	const border = darkMode ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
 
 	return (
 		<div
-			className={`min-h-screen transition-colors duration-700 pb-20`}
-			style={{
-				background: bg,
-				color: darkMode ? "#e5e7eb" : "#111827",
-				fontFamily: "Inter, system-ui, sans-serif",
-			}}
+			className={`min-h-screen overflow-x-hidden transition-colors duration-700 ${darkMode ? "bg-[#0a0a0a] text-neutral-200" : "bg-[#fafafa] text-neutral-900"}`}
 		>
-			<style>{`
-				:root { --font-mono: 'JetBrains Mono', monospace; }
-				.hide-scrollbar::-webkit-scrollbar { display: none; }
-				.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-				.hero-gradient { background: radial-gradient(circle at center, ${accent}15 0%, transparent 70%); }
-				.btn-primary { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
-				.btn-primary:active { transform: scale(0.95); }
-				.card-hover { transition: all 0.3s ease; }
-				.card-hover:hover { border-color: ${accent}40 !important; transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
-			`}</style>
+			<style>{`.hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
-			<div className="max-w-4xl mx-auto px-6 pt-6">
+			<div className="max-w-4xl mx-auto px-4 md:px-6 pt-6">
 				<Navbar
 					darkMode={darkMode}
-					toggleTheme={toggleTheme}
+					toggleTheme={() =>
+						setDarkMode(!darkMode)
+					}
 				/>
 
 				{/* Hero */}
-				<section className="relative mb-24 mt-12">
-					<div className="absolute inset-0 hero-gradient -z-10" />
+				<section className="relative mb-16 mt-8">
 					<div
-						className={`p-16 rounded-[2rem] border text-center relative overflow-hidden ${darkMode ? "bg-neutral-900/50 border-white/5 shadow-3xl" : "bg-white border-neutral-200 shadow-xl"}`}
+						className={`p-8 md:p-16 rounded-[2rem] border text-center relative overflow-hidden ${darkMode ? "bg-neutral-900/50 border-white/5" : "bg-white border-neutral-200 shadow-sm"}`}
 					>
-						<div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#c8a96e] to-transparent opacity-50" />
-						<h1 className="text-8xl md:text-[120px] font-black tracking-tighter mb-4">
+						<h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-2">
 							gink
 						</h1>
-						<p
-							className={`text-xs uppercase tracking-[0.3em] font-light mb-8 ${darkMode ? "text-neutral-500" : "text-neutral-400"}`}
-						>
+						<p className="text-[10px] uppercase tracking-[0.3em] opacity-40 mb-8">
 							a programming language
 						</p>
 						<div className="flex flex-wrap justify-center gap-2">
@@ -358,7 +278,7 @@ export default function App() {
 									key={
 										tag
 									}
-									className="px-4 py-1.5 rounded-full text-[11px] font-semibold border border-[#c8a96e]30 text-[#c8a96e] bg-[#c8a96e]10 uppercase tracking-wider"
+									className="px-3 py-1 rounded-full text-[9px] md:text-[11px] font-bold border border-[#c8a96e]40 text-[#c8a96e] bg-[#c8a96e]10 uppercase"
 								>
 									{tag}
 								</span>
@@ -367,32 +287,32 @@ export default function App() {
 					</div>
 				</section>
 
-				<div className="grid md:grid-cols-[1fr_auto] gap-12 items-end mb-20">
-					<div>
-						<p className="text-3xl font-light text-neutral-500 mb-2">
+				{/* Author */}
+				<div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20">
+					<div className="max-w-md">
+						<p className="text-xl md:text-2xl opacity-50 font-light">
 							Built by
 						</p>
-						<h2 className="text-5xl font-bold tracking-tight mb-4">
+						<h2 className="text-3xl md:text-5xl font-bold mb-4">
 							Jayatheerth Kulkarni
 						</h2>
-						<p className="text-xl text-neutral-500 max-w-xl leading-relaxed">
+						<p className="opacity-60 leading-relaxed">
 							Known online as{" "}
-							<span className="text-[#c8a96e] font-medium italic">
+							<span className="text-[#c8a96e] italic font-medium">
 								Gink
 							</span>
-							. This language is the
-							honest pursuit of the
-							sweet spot between
+							. A language built for
+							the sweet spot between
 							performance and safety.
 						</p>
 					</div>
 					<a
 						href="./gink.pdf"
 						download
-						className="btn-primary group flex items-center gap-3 bg-[#0B1736] text-white px-8 py-4 rounded-2xl font-semibold shadow-2xl hover:bg-[#142654] transition-all"
+						className="w-full md:w-auto bg-[#0B1736] text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform"
 					>
-						<Download size={20} />
-						Download Spec (PDF)
+						<Download size={18} /> Download
+						Spec
 					</a>
 				</div>
 
@@ -401,7 +321,7 @@ export default function App() {
 					<div
 						className={`rounded-3xl border overflow-hidden ${darkMode ? "bg-black border-white/10" : "bg-neutral-50 border-neutral-200"}`}
 					>
-						<div className="flex border-b border-inherit overflow-x-auto hide-scrollbar bg-inherit">
+						<div className="flex border-b border-inherit overflow-x-auto hide-scrollbar">
 							{syntax_tabs.map(
 								(t, i) => (
 									<button
@@ -413,7 +333,7 @@ export default function App() {
 												i,
 											)
 										}
-										className={`px-8 py-4 text-xs font-bold uppercase tracking-widest transition-all ${activeTab === i ? `text-[#c8a96e] bg-[#c8a96e]10 border-b-2 border-[#c8a96e]` : "text-neutral-500 hover:text-neutral-300"}`}
+										className={`whitespace-nowrap px-6 py-4 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === i ? "text-[#c8a96e] bg-[#c8a96e]10 border-b-2 border-[#c8a96e]" : "opacity-40 hover:opacity-100"}`}
 									>
 										{
 											t.label
@@ -433,7 +353,9 @@ export default function App() {
 								code={
 									syntax_tabs[
 										activeTab
-									].code
+									]
+										?.code ||
+									""
 								}
 								dark={darkMode}
 							/>
@@ -442,63 +364,47 @@ export default function App() {
 				</section>
 
 				{/* Features Grid */}
-				<section className="mb-24">
-					<h3 className="text-3xl font-bold mb-10 tracking-tight">
-						Core Philosophies
-					</h3>
-					<div className="grid md:grid-cols-2 gap-6">
-						{features_json.map((f) => (
+				<section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-24">
+					{features_json.map((f) => (
+						<div
+							key={f.title}
+							className={`p-6 rounded-[2rem] border flex flex-col gap-4 ${darkMode ? "bg-neutral-900/40 border-white/5" : "bg-white border-neutral-200"}`}
+						>
+							<span className="w-fit text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded bg-[#c8a96e]20 text-[#c8a96e]">
+								{f.tag}
+							</span>
+							<h4 className="text-lg font-bold">
+								{f.title}
+							</h4>
+							<p className="text-sm opacity-60 leading-relaxed">
+								{f.desc}
+							</p>
 							<div
-								key={f.title}
-								className={`card-hover p-8 rounded-[2rem] border flex flex-col gap-6 ${darkMode ? "bg-neutral-900/40 border-white/5" : "bg-white border-neutral-200"}`}
+								className={`rounded-xl border overflow-hidden ${darkMode ? "bg-black/50 border-white/5" : "bg-neutral-50 border-neutral-200"}`}
 							>
-								<div className="flex justify-between items-center">
-									<span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-lg bg-[#c8a96e]20 text-[#c8a96e]">
-										{
-											f.tag
-										}
-									</span>
-								</div>
-								<div>
-									<h4 className="text-xl font-bold mb-3">
-										{
-											f.title
-										}
-									</h4>
-									<p className="text-neutral-500 text-sm leading-relaxed">
-										{
-											f.desc
-										}
-									</p>
-								</div>
-								<div
-									className={`rounded-2xl border overflow-hidden ${darkMode ? "bg-black border-white/5" : "bg-neutral-50 border-neutral-200"}`}
-								>
-									<CodeSnippet
-										code={
-											f.code
-										}
-										dark={
-											darkMode
-										}
-									/>
-								</div>
+								<CodeSnippet
+									code={
+										f.code
+									}
+									dark={
+										darkMode
+									}
+								/>
 							</div>
-						))}
-					</div>
+						</div>
+					))}
 				</section>
 
-				{/* Traits */}
-				<section className="mb-24 overflow-hidden">
-					<div className="flex items-center justify-between mb-8">
-						<h3 className="text-2xl font-bold">
+				{/* Traits Slider */}
+				<section className="mb-24">
+					<div className="flex items-center justify-between mb-6">
+						<h3 className="text-xl font-bold">
 							The Checklist
 						</h3>
 						<div className="flex gap-2">
 							<button
 								onClick={() =>
 									scrollCar(
-										traitsRef,
 										-1,
 									)
 								}
@@ -513,7 +419,6 @@ export default function App() {
 							<button
 								onClick={() =>
 									scrollCar(
-										traitsRef,
 										1,
 									)
 								}
@@ -529,12 +434,12 @@ export default function App() {
 					</div>
 					<div
 						ref={traitsRef}
-						className="flex gap-4 overflow-x-auto hide-scrollbar pb-4"
+						className="flex gap-4 overflow-x-auto hide-scrollbar pb-4 snap-x"
 					>
 						{traits_json.map((t) => (
 							<div
 								key={t.name}
-								className={`px-8 py-4 rounded-2xl border whitespace-nowrap text-sm font-medium ${darkMode ? "bg-white/5 border-white/10" : "bg-neutral-100 border-neutral-200"}`}
+								className={`snap-start px-6 py-4 rounded-2xl border whitespace-nowrap text-xs font-medium flex-shrink-0 ${darkMode ? "bg-white/5 border-white/10" : "bg-neutral-100 border-neutral-200"}`}
 							>
 								{t.name}
 							</div>
@@ -542,205 +447,63 @@ export default function App() {
 					</div>
 				</section>
 
-				{/* CTA */}
-				<section className="relative">
-					<div
-						className={`p-12 md:p-20 rounded-[3rem] text-center overflow-hidden border ${darkMode ? "bg-neutral-900 border-white/10 shadow-3xl" : "bg-neutral-100 border-neutral-200"}`}
-					>
-						<div className="absolute top-0 right-0 w-64 h-64 bg-[#c8a96e] blur-[120px] opacity-10 -z-10" />
-						<h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-							The complete
-							specification.
-						</h2>
-						<p className="text-neutral-500 max-w-md mx-auto mb-10 text-lg leading-relaxed">
-							Ownership, types,
-							modules, and error
-							handling — all defined
-							in the first draft.
-						</p>
-						<a
-							href="./gink.pdf"
-							download
-							className="inline-flex items-center gap-3 bg-[#c8a96e] text-black px-10 py-5 rounded-2xl font-bold shadow-xl hover:scale-105 transition-all"
-						>
-							Download gink.pdf{" "}
-							<Download size={20} />
-						</a>
-					</div>
-				</section>
-			</div>
-
-			{/* Footer */}
-			<footer
-				className={`mt-20 border-t pt-10 pb-8 transition-colors ${
-					darkMode
-						? "border-white/10 text-neutral-300"
-						: "border-neutral-300 text-neutral-700"
-				}`}
-			>
-				<div className="max-w-4xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-10">
-					{/* Column 1   Connect */}
-					<div className="space-y-3">
-						<h3
-							className={`text-lg font-semibold ${darkMode ? "text-white" : "text-neutral-900"}`}
-						>
-							Connect
-						</h3>
-						<ul className="space-y-2 text-sm">
-							<li>
+				{/* Footer */}
+				<footer
+					className={`border-t pt-10 pb-20 opacity-70 ${darkMode ? "border-white/10" : "border-neutral-200"}`}
+				>
+					<div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-sm">
+						<div className="space-y-4">
+							<h3 className="font-bold uppercase tracking-widest text-[10px]">
+								Connect
+							</h3>
+							<div className="flex flex-col gap-2">
 								<a
 									href="mailto:jayatheerthkulkarni2005@gmail.com"
-									className="hover:opacity-90"
+									className="flex items-center gap-2"
 								>
-									jayatheerthkulkarni2005@gmail.com
+									<Mail
+										size={
+											14
+										}
+									/>{" "}
+									Email
 								</a>
-							</li>
-							<li>
 								<a
 									href="https://x.com/k_jayatheerth"
-									target="_blank"
-									rel="noreferrer"
-									className="hover:opacity-90"
+									className="flex items-center gap-2"
 								>
+									<Twitter
+										size={
+											14
+										}
+									/>{" "}
 									Twitter
-									(dead
-									asf 🥀)
 								</a>
-							</li>
-							<li>
 								<a
-									href="https://www.linkedin.com/in/jayatheerth-k-0a3685297/"
-									target="_blank"
-									rel="noreferrer"
-									className="hover:opacity-90"
+									href="https://linkedin.com"
+									className="flex items-center gap-2"
 								>
+									<Linkedin
+										size={
+											14
+										}
+									/>{" "}
 									LinkedIn
 								</a>
-							</li>
-						</ul>
+							</div>
+						</div>
+						<div className="space-y-4">
+							<h3 className="font-bold uppercase tracking-widest text-[10px]">
+								Development
+							</h3>
+						</div>
 					</div>
-
-					{/* Column 2   Projects */}
-					<div className="space-y-3">
-						<h3
-							className={`text-lg font-semibold ${darkMode ? "text-white" : "text-neutral-900"}`}
-						>
-							Projects
-						</h3>
-						<ul className="space-y-2 text-sm">
-							<li>
-								<a
-									href="https://github.com/jayatheerthkulkarni"
-									target="_blank"
-									rel="noreferrer"
-									className="hover:opacity-90"
-								>
-									GitHub
-									Profile
-								</a>
-							</li>
-							<li>
-								<a
-									href="https://github.com/GCET-Open-Source-Foundation/auth"
-									target="_blank"
-									className="hover:opacity-90"
-								>
-									Auth
-								</a>
-							</li>
-							<li>
-								<a
-									href="https://jayatheerth.com/resume"
-									target="_blank"
-									rel="noreferrer"
-									className="hover:opacity-90"
-								>
-									Resume
-								</a>
-							</li>
-						</ul>
-					</div>
-
-					{/* Column 3   Open Source */}
-					<div className="space-y-3">
-						<h3
-							className={`text-lg font-semibold ${darkMode ? "text-white" : "text-neutral-900"}`}
-						>
-							More links
-						</h3>
-						<ul className="space-y-2 text-sm">
-							<li>
-								<a
-									href="https://github.com/git/git/commits/master/?author=jayatheerthkulkarni"
-									target="_blank"
-									rel="noreferrer"
-									className="hover:opacity-90"
-								>
-									My Git
-									Commits
-								</a>
-							</li>
-							<li>
-								<a
-									href="https://git.github.io/rev_news/2025/06/30/edition-124/"
-									target="_blank"
-									rel="noreferrer"
-									className="hover:opacity-90"
-								>
-									Git Rev
-									News
-									Mention
-								</a>
-							</li>
-							<li>
-								<a
-									href="https://jayatheerth.com"
-									className="hover:opacity-90"
-								>
-									jayatheerth.com
-								</a>
-							</li>
-							<li>
-								<a
-									href="https://jayatheerth.com/blogs"
-									className="hover:opacity-90"
-								>
-									blogs
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				{/* Bottom Line */}
-				<div className="text-center text-sm opacity-70 mt-10">
-					© {new Date().getFullYear()}{" "}
-					Jayatheerth. No Rights Reserved, Copy
-					it, Go nuts.
-				</div>
-			</footer>
-
-			<style>{`
-					.hide-scrollbar {
-						-ms-overflow-style: none;
-						scrollbar-width: none;
-					}
-					.hide-scrollbar::-webkit-scrollbar {
-						display: none;
-					}
-					.line-clamp-2 {
-						display: -webkit-box;
-						-webkit-line-clamp: 2;
-						-webkit-box-orient: vertical;
-						overflow: hidden;
-					}
-					.line-clamp-3 {
-						display: -webkit-box;
-						-webkit-line-clamp: 3;
-						-webkit-box-orient: vertical;
-						overflow: hidden;
-					}
-				`}</style>
+					<p className="mt-16 text-center text-[10px] opacity-40">
+						© {new Date().getFullYear()}{" "}
+						Jayatheerth. No Rights Reserved.
+					</p>
+				</footer>
+			</div>
 		</div>
 	);
 }
