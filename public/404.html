@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script type="text/javascript">
+    // SPA Routing Redirect for GitHub Pages
+    // Converts direct URL paths (e.g. domain.com/about) into hash routing (e.g. domain.com/#/about)
+    // so the client-side router can handle the request correctly without throwing a server 404.
+    var path = window.location.pathname;
+    var cleanPath = path.endsWith('/') ? path.slice(0, -1) : path;
+    
+    if (cleanPath && cleanPath !== "") {
+      var isGithubIo = window.location.hostname.endsWith('github.io');
+      var segments = path.split('/').filter(Boolean);
+      
+      if (isGithubIo && segments.length > 0) {
+        var repo = segments[0];
+        var rest = '/' + segments.slice(1).join('/');
+        window.location.replace(window.location.origin + '/' + repo + '/#' + rest + window.location.search + window.location.hash);
+      } else {
+        window.location.replace(window.location.origin + '/#' + path + window.location.search + window.location.hash);
+      }
+    } else {
+      window.location.replace(window.location.origin + '/');
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>
