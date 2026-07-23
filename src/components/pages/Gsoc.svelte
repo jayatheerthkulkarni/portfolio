@@ -18,49 +18,55 @@
 	}
 
 	const journalWeeks = [
-		{
-			week: 1,
-			title: "RFCs & Setup",
-			desc: "Drafting the initial RFC (Request for Comments) for the path.* key structure. Gathering feedback on syntax from git core maintainers on the mailing list.",
-			link: "#/blogs/gsoc/week-1-path-foundation"
-		},
-		{
-			week: 2,
-			title: "Architecture & Design",
-			desc: "Designing the prefix lookup mechanism within repo.c. Setting up unit test structures inside git test suite.",
-			link: "#/blogs/gsoc/week-2-feedback1"
-		},
-		{
-			week: 3,
-			title: "Implementation Begins",
-			desc: "Fleshing out the path resolution functions. Integrating configuration queries to map repository paths to their real paths.",
-			link: "#/blogs/gsoc/week-3-next-steps"
-		},
-		{
-			week: 4,
-			title: "Testing & Refinement",
-			desc: "Resolving edge cases where repo paths are requested outside worktree environments. Iterating on mailing list patches.",
-			link: "#/blogs/gsoc/week-4-phase2"
-		},
-		{
-			week: 5,
-			title: "Revision Iteration",
-			desc: "Incorporating feedback from the community review. Refactoring the prefix querying cache mechanism to optimize repeated calls.",
-			link: "#/blogs/gsoc/week-5"
-		},
-		{
-			week: 6,
-			title: "Documentation & Cleanup",
-			desc: "Adding manpage documentation for git-repo diagnostics. Cleaning up static helpers and modularizing lookup functions.",
-			link: "#/blogs/gsoc/week-6"
-		},
-		{
-			week: 7,
-			title: "Midterm Evaluation",
-			desc: "Finalizing deliverables for the midterm evaluation. Standardizing test suites and submitting the refined patch series.",
-			link: "#/blogs/gsoc/week-7"
-		}
-	];
+			{
+				week: 1,
+				title: "Coding Phase Kicks Off",
+				desc: "The official coding phase kicks off! Diving into the codebase, setting up the development environment, and tackling the first set of tasks.",
+				link: "#/blogs/gsoc/week-1-path-foundation"
+			},
+			{
+				week: 2,
+				title: "Patch Review & Feedback",
+				desc: "Addressing mailing list review feedback for the Week 1 patch series and refining the path resolution implementations.",
+				link: "#/blogs/gsoc/week-2-feedback1"
+			},
+			{
+				week: 3,
+				title: "Finalizing Phase 1 Patches",
+				desc: "Finalizing initial path patches and preparing the groundwork to transition into phase 2 features.",
+				link: "#/blogs/gsoc/week-3-next-steps"
+			},
+			{
+				week: 4,
+				title: "Query System & Feedback",
+				desc: "Receiving green flags from Junio C Hamano and beginning work on building the query filtering system.",
+				link: "#/blogs/gsoc/week-4-phase2"
+			},
+			{
+				week: 5,
+				title: "Merging to 'next'",
+				desc: "A major milestone reached as all three initial patch series get merged into Git's 'next' integration branch.",
+				link: "#/blogs/gsoc/week-5"
+			},
+			{
+				week: 6,
+				title: "Merged to Master & Midterm",
+				desc: "Passed the GSoC midterm evaluation smoothly with all three patch series successfully merged directly into master.",
+				link: "#/blogs/gsoc/week-6"
+			},
+			{
+				week: 7,
+				title: "Expanding Path Keys",
+				desc: "Expanding the path formatting framework with a 7-patch series adding toplevel, superproject, index, hooks, objects, grafts, and prefix keys.",
+				link: "#/blogs/gsoc/week-7"
+			},
+			{
+				week: 8,
+				title: "Pivoting Scope & Bar Charts",
+				desc: "Ditching the query system after mailing list consensus. Pivoting scope to git repo structure, object distribution buckets, and Unicode bar charts.",
+				link: "#/blogs/gsoc/week-8"
+			}
+		];
 
 	onMount(() => {
 		window.scrollTo(0, 0);
@@ -83,7 +89,7 @@
 
 <div class="gsoc-page">
 	<div class="page-container">
-		
+
 		<section class="gsoc-hero">
 			<div class="gsoc-hero-content">
 				<span class="eyebrow">Google Summer of Code 2026</span>

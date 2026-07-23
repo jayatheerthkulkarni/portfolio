@@ -9,6 +9,12 @@
 
 	const blogs = [
 		{
+			title: "GSoC coding phase: Week 8",
+			desc: "Dropping the query filtering system in favor of git repo info --all. Shifting focus to git repo structure, streaming distribution buckets, and Unicode bar charts.",
+			link: "#/blogs/gsoc/week-8",
+			category: "GSoC",
+		},
+		{
 			title: "GSoC coding phase: Week 7",
 			desc: "Expanding the path formatting framework. 7 patches sent to add toplevel, submodule superproject, index, hooks, objects, grafts, and prefix keys.",
 			link: "#/blogs/gsoc/week-7",
@@ -136,7 +142,7 @@
 	// Re-run card entry animation when category/search updates
 	function triggerCardEntrance() {
 		setTimeout(() => {
-			gsap.fromTo(".blog-card", 
+			gsap.fromTo(".blog-card",
 				{ opacity: 0, y: 30 },
 				{ opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: "power2.out" }
 			);
@@ -173,9 +179,9 @@
 				<circle cx="11" cy="11" r="8"></circle>
 				<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
 			</svg>
-			<input 
-				type="text" 
-				placeholder="Search articles by keyword..." 
+			<input
+				type="text"
+				placeholder="Search articles by keyword..."
 				bind:value={searchQuery}
 				on:input={handleSearchInput}
 			/>
@@ -183,8 +189,8 @@
 
 		<div class="category-tabs">
 			{#each categories as cat}
-				<button 
-					class="tab-btn" 
+				<button
+					class="tab-btn"
 					class:active={selectedCategory === cat}
 					on:click={() => handleCategorySelect(cat)}
 				>
@@ -195,9 +201,9 @@
 	</section>
 
 	<main class="archive-grid">
-		{#each blogs.filter(b => 
+		{#each blogs.filter(b =>
 			(selectedCategory === "All" || b.category === selectedCategory) &&
-			(b.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+			(b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			 b.desc.toLowerCase().includes(searchQuery.toLowerCase()))
 		) as item}
 			<a href={item.link} class="blog-card">
