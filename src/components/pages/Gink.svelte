@@ -59,6 +59,13 @@
 	function selectStage(stage) {
 		activePipelineStage = stage;
 	}
+
+	function scrollToSection(id) {
+		const el = document.getElementById(id);
+		if (el) {
+			el.scrollIntoView({ behavior: "smooth" });
+		}
+	}
 </script>
 
 <Navbar />
@@ -87,10 +94,10 @@
 					</div>
 				</div>
 
-				<a href="#philosophy" class="scroll-cta">
+				<button on:click={() => scrollToSection("philosophy")} class="scroll-cta">
 					<span>Read the Specification</span>
 					<span class="arrow-down">↓</span>
-				</a>
+				</button>
 			</div>
 		</section>
 
@@ -587,6 +594,10 @@ main() &#123;
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
 		transition: color 0.3s ease;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
 	}
 
 	.scroll-cta:hover {
@@ -1059,7 +1070,7 @@ main() &#123;
 	}
 
 	.memory-circle.state-1, .memory-circle.state-2 {
-		left: 252px;
+		left: calc(100% - 68px);
 	}
 
 	.interactive-controls {
@@ -1478,6 +1489,40 @@ main() &#123;
 
 		.philosophy-section {
 			padding: 2rem 0;
+		}
+
+		.pillar-card {
+			padding: 1.75rem 1.25rem;
+		}
+
+		.pipeline-details-panel {
+			padding: 1.5rem 1.25rem;
+			min-height: auto;
+		}
+
+		.memory-visualizer {
+			padding: 1.5rem 1rem;
+		}
+
+		.visualizer-stage-wrapper {
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.visualizer-nodes-container {
+			width: 100%;
+			max-width: 320px;
+			box-sizing: border-box;
+		}
+
+		.doc-card {
+			padding: 1.75rem 1.25rem;
+			gap: 2rem;
+		}
+
+		.code-block {
+			padding: 1rem;
+			font-size: 0.85rem;
 		}
 	}
 </style>

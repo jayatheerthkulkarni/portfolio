@@ -68,6 +68,13 @@
 			}
 		];
 
+	function scrollToSection(id) {
+		const el = document.getElementById(id);
+		if (el) {
+			el.scrollIntoView({ behavior: "smooth" });
+		}
+	}
+
 	onMount(() => {
 		window.scrollTo(0, 0);
 
@@ -103,10 +110,10 @@
 					<span class="meta-item">2026</span>
 				</div>
 
-				<a href="#context" class="scroll-cta">
+				<button on:click={() => scrollToSection("context")} class="scroll-cta">
 					<span>Read Proposal</span>
 					<span class="arrow-down">↓</span>
-				</a>
+				</button>
 			</div>
 		</section>
 
@@ -454,6 +461,10 @@
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
 		transition: color 0.3s ease;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
 	}
 
 	.scroll-cta:hover {
@@ -1236,13 +1247,28 @@
 			padding-top: 2rem;
 		}
 
+		.status-card {
+			padding: 1.5rem 1rem;
+		}
+
 		.status-timeline {
 			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+		}
+
+		.objective-card {
+			padding: 1.75rem 1.25rem;
+		}
+
+		.preview-card {
+			padding: 1.75rem 1.25rem;
+			gap: 2rem;
 		}
 
 		.animated-flow-wrapper {
 			flex-direction: column;
 			gap: 1rem;
+			padding: 1.5rem 1rem;
 		}
 
 		.flow-line {
@@ -1254,8 +1280,31 @@
 			content: "↓";
 		}
 
+		.journal-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1.5rem;
+		}
+
 		.context-section {
 			padding: 2rem 0;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.journal-blog-card {
+			width: calc(100vw - 3.5rem);
+			max-width: 290px;
+			padding: 1.75rem 1.25rem;
+		}
+
+		.numbers-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+		}
+
+		.num-val {
+			font-size: clamp(2.5rem, 8vw, 4rem);
 		}
 	}
 </style>

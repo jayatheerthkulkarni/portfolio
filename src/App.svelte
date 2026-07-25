@@ -33,6 +33,7 @@
 		{ path: "/gallery", component: Gallery },
 		{ path: "/gink", component: Gink },
 		{ path: "/gsoc", component: Gsoc },
+		{ path: "/git", component: Gsoc },
 		{ path: "/blogs", component: Blogs },
 
 		// Blog Routes

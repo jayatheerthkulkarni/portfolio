@@ -181,6 +181,11 @@
 		nav {
 			padding: 0.6rem 0;
 		}
+
+		.scrolled {
+			mask-image: none;
+			-webkit-mask-image: none;
+		}
 	}
 
 	@media (max-width: 480px) {
