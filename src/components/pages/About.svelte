@@ -61,12 +61,12 @@
 			artist: "Loading..."
 		},
 		{
-			youtubeUrl: "https://youtu.be/0NKUpo_xKyQ?si=yQDV4SKAZeknZN0q",
+			youtubeUrl: "https://youtu.be/UXO6E3-7ONs?si=xwWgc7X1I8wvj9it",
 			title: "Loading...",
 			artist: "Loading..."
 		},
 		{
-			youtubeUrl: "https://www.youtube.com/watch?v=QtXby3twMmI",
+			youtubeUrl: "https://youtu.be/c1GxjzHm5us?si=sFcZriMthdpsFXXl",
 			title: "Loading...",
 			artist: "Loading..."
 		},
