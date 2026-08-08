@@ -65,7 +65,19 @@
 				title: "Pivoting Scope & Bar Charts",
 				desc: "Ditching the query system after mailing list consensus. Pivoting scope to git repo structure, object distribution buckets, and Unicode bar charts.",
 				link: "#/blogs/gsoc/week-8"
-			}
+			},
+			{
+				week: 9,
+				title: "Unicode Output & Locale Detection",
+				desc: "Adding Unicode box-drawing output to git repo structure, fixing UTF-8 locale detection, and writing a reliable regression test.",
+				link: "#/blogs/gsoc/week-9"
+			},
+			{
+				week: 10,
+				title: "New Path Keys for git repo info",
+				desc: "Adding new path keys, refining the interface through review, and preparing a clean four-revision patch series.",
+				link: "#/blogs/gsoc/week-10"
+			},
 		];
 
 	function scrollToSection(id) {
@@ -103,7 +115,7 @@
 				<h1>Improving Git,</h1>
 				<h1 class="accent-title">one patch at a time.</h1>
 				<p class="hero-subtitle">Proposal accepted for improving the new <code>git repo</code> command.</p>
-				
+
 				<div class="hero-meta">
 					<span class="meta-item">Git Project</span>
 					<span class="meta-separator">❈</span>

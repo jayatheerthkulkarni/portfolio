@@ -8,6 +8,8 @@
 	import Blogs from "./components/pages/Blogs.svelte";
 
 	// Blog Page Imports
+	import GsocWeek10 from "./components/pages/blogs/GsocWeek10.svelte";
+	import GsocWeek9 from "./components/pages/blogs/GsocWeek9.svelte";
 	import GsocWeek8 from "./components/pages/blogs/GsocWeek8.svelte";
 	import GsocWeek7 from "./components/pages/blogs/GsocWeek7.svelte";
 	import GsocWeek6 from "./components/pages/blogs/GsocWeek6.svelte";
@@ -37,6 +39,8 @@
 		{ path: "/blogs", component: Blogs },
 
 		// Blog Routes
+		{ path: "/blogs/gsoc/week-10", component: GsocWeek10 },
+		{ path: "/blogs/gsoc/week-9", component: GsocWeek9 },
 		{ path: "/blogs/gsoc/week-8", component: GsocWeek8 },
 		{ path: "/blogs/gsoc/week-7", component: GsocWeek7 },
 		{ path: "/blogs/gsoc/week-6", component: GsocWeek6 },

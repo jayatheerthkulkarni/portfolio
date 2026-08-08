@@ -9,6 +9,18 @@
 
 	const blogs = [
 		{
+			title: "GSoC coding phase: Week 10",
+			desc: "Teaching `git repo info` New Tricks: A Debugging Diary",
+			link: "#/blogs/gsoc/week-10",
+			category: "GSoC",
+		},
+		{
+			title: "GSoC coding phase: Week 9",
+			desc: "A Locale Bug, a Rabbit Hole, and Everything I Learned About Git History",
+			link: "#/blogs/gsoc/week-9",
+			category: "GSoC",
+		},
+		{
 			title: "GSoC coding phase: Week 8",
 			desc: "Dropping the query filtering system in favor of git repo info --all. Shifting focus to git repo structure, streaming distribution buckets, and Unicode bar charts.",
 			link: "#/blogs/gsoc/week-8",
