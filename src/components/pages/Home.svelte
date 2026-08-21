@@ -1,8 +1,29 @@
 <script>
+	import { onMount } from "svelte";
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
 	import { Router } from "@mateothegreat/svelte5-router";
 
 	import Navbar from "../Navbar.svelte";
 	import Footer from "../Footer.svelte";
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	onMount(() => {
+		// Native GSAP animation replaces CSS scroll-timeline for 100% cross-browser support
+		gsap.to(".hero", {
+			opacity: 0,
+			scale: 0.96,
+			pointerEvents: "none",
+			ease: "none",
+			scrollTrigger: {
+				trigger: ".sticky-wrapper",
+				start: "top top",
+				end: "80vh top",
+				scrub: true,
+			}
+		});
+	});
 
 	const projects = [
 		{
@@ -71,8 +92,8 @@
 			<h1>Jayatheerth Kulkarni</h1>
 
 			<p class="subtitle">
-				Open Source <span>❈</span>
-				Systems <span>❈</span>
+				Open Source <span>&#10056;</span>
+				Systems <span>&#10056;</span>
 				Compilers
 			</p>
 		</div>
@@ -110,7 +131,7 @@
 								</h3>
 								<span
 									class="card-arrow"
-									>→</span
+									>&rarr;</span
 								>
 							</div>
 						</a>
@@ -133,7 +154,7 @@
 					class="cv-button"
 				>
 					Download CV
-					<span class="btn-arrow">↓</span>
+					<span class="btn-arrow">&darr;</span>
 				</a>
 			</div>
 
@@ -174,7 +195,7 @@
 								>
 								<span
 									class="meta-dot"
-									>·</span
+									>&middot;</span
 								>
 								<span
 									>{article.readingTime}</span
@@ -183,7 +204,7 @@
 							<h3>{article.title}</h3>
 							<span
 								class="writing-arrow"
-								>→</span
+								>&rarr;</span
 							>
 						</a>
 					{/each}
@@ -254,10 +275,7 @@
 		padding-inline: 2rem;
 		overflow: hidden;
 		z-index: 2;
-
-		animation: dissolve linear both;
-		animation-timeline: scroll(root);
-		animation-range: 0vh 80vh;
+		will-change: transform, opacity;
 	}
 
 	.section-two {
@@ -270,14 +288,6 @@
 		z-index: 1;
 		margin-top: 100vh;
 		padding: 6rem 2rem;
-	}
-
-	@keyframes dissolve {
-		to {
-			opacity: 0;
-			transform: scale(0.96);
-			visibility: hidden;
-		}
 	}
 
 	.hero-bg {

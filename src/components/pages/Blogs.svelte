@@ -9,6 +9,18 @@
 
 	const blogs = [
 		{
+			title: "GSoC conclusion: Week 12",
+			desc: "Teaching `git repo info` New Tricks: A Debugging Diary",
+			link: "#/blogs/gsoc/conclusion",
+			category: "GSoC",
+		},
+		{
+			title: "GSoC coding phase: Week 11",
+			desc: "How an upstream review on Git mailing lists turned a single patch idea into a complete, bidirectional interface.",
+			link: "#/blogs/gsoc/week-11",
+			category: "GSoC",
+		},
+		{
 			title: "GSoC coding phase: Week 10",
 			desc: "Teaching `git repo info` New Tricks: A Debugging Diary",
 			link: "#/blogs/gsoc/week-10",

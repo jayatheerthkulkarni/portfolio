@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from "svelte";
 	import { Router } from "@mateothegreat/svelte5-router";
 	import Home from "./components/pages/Home.svelte";
 	import About from "./components/pages/About.svelte";
@@ -6,8 +7,11 @@
 	import Gink from "./components/pages/Gink.svelte";
 	import Gsoc from "./components/pages/Gsoc.svelte";
 	import Blogs from "./components/pages/Blogs.svelte";
+	import GlobalLoader from "./components/GlobalLoader.svelte";
 
 	// Blog Page Imports
+	import GsocWeek11 from "./components/pages/blogs/GsocWeek11.svelte";
+	import GsocFinal from "./components/pages/blogs/GsocFinal.svelte";
 	import GsocWeek10 from "./components/pages/blogs/GsocWeek10.svelte";
 	import GsocWeek9 from "./components/pages/blogs/GsocWeek9.svelte";
 	import GsocWeek8 from "./components/pages/blogs/GsocWeek8.svelte";
@@ -29,6 +33,23 @@
 	import AncientIndianUI from "./components/pages/blogs/AncientIndianUI.svelte";
 	import NotFound from "./components/pages/NotFound.svelte";
 
+	let routeKey = $state(0);
+
+	function triggerLoader() {
+		routeKey += 1;
+	}
+
+	onMount(() => {
+		// Listen for route/URL shifts (covers popstate navigation and hash routing)
+		window.addEventListener("popstate", triggerLoader);
+		window.addEventListener("hashchange", triggerLoader);
+
+		return () => {
+			window.removeEventListener("popstate", triggerLoader);
+			window.removeEventListener("hashchange", triggerLoader);
+		};
+	});
+
 	const routes = [
 		{ path: "/", component: Home },
 		{ path: "/about", component: About },
@@ -39,6 +60,8 @@
 		{ path: "/blogs", component: Blogs },
 
 		// Blog Routes
+		{ path: "/blogs/gsoc/conclusion", component: GsocFinal },
+		{ path: "/blogs/gsoc/week-11", component: GsocWeek11 },
 		{ path: "/blogs/gsoc/week-10", component: GsocWeek10 },
 		{ path: "/blogs/gsoc/week-9", component: GsocWeek9 },
 		{ path: "/blogs/gsoc/week-8", component: GsocWeek8 },
@@ -66,6 +89,8 @@
 		}
 	};
 </script>
+
+<GlobalLoader key={routeKey} />
 
 <Router {routes} {statuses} />
 

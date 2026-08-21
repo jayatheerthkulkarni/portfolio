@@ -78,6 +78,18 @@
 				desc: "Adding new path keys, refining the interface through review, and preparing a clean four-revision patch series.",
 				link: "#/blogs/gsoc/week-10"
 			},
+			{
+				week: 11,
+				title: "Another path key in git repo info?",
+				desc: "How an upstream review on Git mailing lists turned a single patch idea into a complete, bidirectional interface.",
+				link: "#/blogs/gsoc/week-11"
+			},
+			{
+				week: 12,
+				title: "The end of GSoC 2026",
+				desc: "This blog covers the summary of my GSoC journey with Git",
+				link: "#/blogs/gsoc/conclusion"
+			},
 		];
 
 	function scrollToSection(id) {
@@ -153,11 +165,11 @@
 						<span class="status-icon">✓</span>
 						<span class="status-label">Midterm</span>
 					</div>
-					<div class="status-item active">
-						<span class="status-icon">✦</span>
+					<div class="status-item done">
+						<span class="status-icon">✓</span>
 						<span class="status-label">Second Half (ongoing)</span>
 					</div>
-					<div class="status-item pending">
+					<div class="status-item active">
 						<span class="status-icon">○</span>
 						<span class="status-label">Final Evaluation</span>
 					</div>
