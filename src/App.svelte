@@ -7,6 +7,7 @@
 	import Gink from "./components/pages/Gink.svelte";
 	import Gsoc from "./components/pages/Gsoc.svelte";
 	import Blogs from "./components/pages/Blogs.svelte";
+	import Hash from "./components/pages/Hash.svelte";
 	import GlobalLoader from "./components/GlobalLoader.svelte";
 
 	// Blog Page Imports
@@ -58,6 +59,7 @@
 		{ path: "/gsoc", component: Gsoc },
 		{ path: "/git", component: Gsoc },
 		{ path: "/blogs", component: Blogs },
+		{ path: "/hash", component: Hash },
 
 		// Blog Routes
 		{ path: "/blogs/gsoc/conclusion", component: GsocFinal },
